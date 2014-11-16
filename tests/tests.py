@@ -27,8 +27,12 @@ class TestPS3Autotests(unittest.TestCase):
 
         for elf, expected in matches:
             call([rpcs3_binary, '-t', elf])
-            fromlines = open(expected, 'U').readlines()
-            tolines = open(tty_log, 'U').readlines()
+
+            with open(expected, 'U') as a_file:
+                fromlines = a_file.readlines()
+            with open(tty_log, 'U') as a_file:
+                tolines = a_file.readlines()
+
             diff = difflib.unified_diff(fromlines, tolines)
             diff = ''.join(diff)
 
