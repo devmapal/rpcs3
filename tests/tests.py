@@ -11,9 +11,6 @@ tests_dir = None
 
 class TestPS3Autotests(unittest.TestCase):
     def test_ps3_autotests(self):
-        print(rpcs3_binary)
-        print(tty_log)
-        print(tests_dir)
         matches = []
         for root, dirnames, filenames in os.walk(tests_dir):
             elfs = fnmatch.filter(filenames, '*.elf')
