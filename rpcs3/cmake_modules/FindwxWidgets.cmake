@@ -744,10 +744,12 @@ else()
     # UNIX: Start actual work.
     #-----------------------------------------------------------------
     # Support cross-compiling, only search in the target platform.
-    find_program(wxWidgets_CONFIG_EXECUTABLE wx-config
-      DOC "Location of wxWidgets library configuration provider binary (wx-config)."
-      ONLY_CMAKE_FIND_ROOT_PATH
-      )
+    if(NOT wxWidgets_CONFIG_EXECUTABLE)
+      find_program(wxWidgets_CONFIG_EXECUTABLE wx-config "${RPCS3_SRC_DIR}/.."
+        DOC "Location of wxWidgets library configuration provider binary (wx-config)."
+        ONLY_CMAKE_FIND_ROOT_PATH
+        )
+    endif()
 
     if(wxWidgets_CONFIG_EXECUTABLE)
       set(wxWidgets_FOUND TRUE)
