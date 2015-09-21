@@ -11,6 +11,17 @@ if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
 	message( FATAL_ERROR "RPCS3 can only be compiled on 64-bit platforms." )
 endif()
 
+include(ExternalProject)
+ExternalProject_Add(
+    wxWidgets
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/wxWidgets
+    CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/wxWidgets/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/wxWidgets --with-opengl --with-expat --enable-sockets --enable-aui
+    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/wxWidgets
+    BUILD_COMMAND make -j8
+    BUILD_IN_SOURCE 1
+    INSTALL_COMMAND true
+)
+
 add_subdirectory( asmjit )
 # TODO: do real installation, including copying directory structure
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${PROJECT_BINARY_DIR}/bin")
