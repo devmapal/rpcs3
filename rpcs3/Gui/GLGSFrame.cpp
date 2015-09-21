@@ -5,12 +5,16 @@
 #include "GLGSFrame.h"
 #include "D3DGSFrame.h"
 #include "Utilities/Timer.h"
+#include "wx/glcanvas.h"
 
 GLGSFrame::GLGSFrame()
 	: GSFrame(nullptr, "GSFrame[OpenGL]")
 	, m_frames(0)
 {
-	canvas = new wxGLCanvas(this, wxID_ANY, NULL);
+	int attributelist[5] = {wxGLCanvas::WX_GL_CORE_PROFILE,
+						    wxGLCanvas::WX_GL_MAJOR_VERSION, 4,
+						    wxGLCanvas::WX_GL_MINOR_VERSION, 1};
+	canvas = new wxGLCanvas(this, wxID_ANY, attributelist);
 	canvas->SetSize(GetClientSize());
 
 	canvas->Bind(wxEVT_LEFT_DCLICK, &GSFrame::OnLeftDclick, this);
